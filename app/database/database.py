@@ -17,10 +17,9 @@ class Directory():
 
         return contacs_database
 
-    @property
     def contact_by_id(self, contact_id):
         contact = filter(lambda contact: contact["id"] ==
-                         contact_id, self.contacts)
+                         contact_id, self.all_contacts)
 
         return list(contact)
 
