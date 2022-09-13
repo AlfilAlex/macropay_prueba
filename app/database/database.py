@@ -32,18 +32,13 @@ class Directory():
     def delete_contact(self, contact_id):
         if self.contact_exist(contact_id):
             filtered_contacts = list(
-                filter(lambda contact: contact["id"] != contact_id))
+                filter(lambda contact: contact["id"] != contact_id, self.all_contacts))
             self.update_contacts(filtered_contacts)
 
     def update_contacts(self, updated_contacts):
         with open(self.path_to_file, "w") as open_file:
-            json.dump(open_file, updated_contacts)
+            json.dump(updated_contacts, open_file)
 
     def contact_exist(self, contact_id):
         return len(list(filter(lambda contact: contact["id"] ==
                                contact_id, self.all_contacts)))
-
-
-if __name__ == '__main__':
-    directory = Directory("./fakedatabase.json")
-    # {'id': 'f88e54c5-eec8-4c6a-acd4-1177fd07abf5', 'name': 'Rusty Medhurst', 'phone': '1-259-626-1422', 'addressLines': ['762 Greenholt Lake', 'New Alekside', 'Djibouti']}

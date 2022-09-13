@@ -23,7 +23,8 @@ def contacts_list():
     dir_contacts.sort(key=lambda contact: contact["name"])
     response = make_response({"status": "success",
                               "data": {"contacts": dir_contacts}}, 200)
-    #! PONER HEADERS
+    response.headers['Content-type'] = 'application/json'
+
     return response
 
 
@@ -37,7 +38,7 @@ def contact(contact_id):
         response = make_response({"status": "success",
                                   "data": {"contact": contact}}, 200)
 
-     #! PONER HEADERS
+    response.headers['Content-type'] = 'application/json'
     return response
 
 
@@ -51,5 +52,4 @@ def delete_contact(contact_id):
         response = make_response({"status": "fail", "data": {
                                  "phrase": f"Contact with ID value {contact_id} does not exist"}}, 200)
 
-     #! PONER HEADERS
     return response
