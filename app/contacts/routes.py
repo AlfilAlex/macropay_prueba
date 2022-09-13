@@ -12,7 +12,7 @@ contacts = Blueprint('contacts', __name__,
 @contacts.route('/contacts', methods=['GET'])
 def contacts_list():
     if "phrase" in request.args:
-        if not request.args["phrase"]:
+        if request.args["phrase"] == "":
             return make_response({"status": "fail", "data": {"phrase": "Empty phrases are not allowed"}}, 400)
 
         dir_contacts = contact_directory.contacts_by_phrase(
