@@ -41,15 +41,15 @@ def contact(contact_id):
     return response
 
 
-@contacts.route("contacts/<contact_id>", methods=["GET"])
+@contacts.route("contacts/<contact_id>", methods=["DELETE"])
 def delete_contact(contact_id):
-    contact = contact_directory.delete_contact_by_id(contact_id)
-    if not contact:
+    if contact_directory.contact_exist(contact_id):
+        contact_directory.delete_contact(contact_id)
         response = make_response(
-            {"status": "fail", "data": {"phrase": f"Contact with ID value {contact_id} does not exist"}}, 404)
+            {"status": "success", "data": None}, 204)
     else:
-        response = make_response({"status": "success",
-                                  "data": {"contact": contact}}, 200)
+        response = make_response({"status": "fail", "data": {
+                                 "phrase": f"Contact with ID value {contact_id} does not exist"}}, 200)
 
      #! PONER HEADERS
     return response
