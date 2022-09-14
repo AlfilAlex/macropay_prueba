@@ -2,7 +2,39 @@
 
 El siguiente repositorio es el resultado de la prueba técnica de Macropay. El contexto de esta gira alrededor de un directorio de contactos como recurso del servidor y el que se busca exponer a través de una REST API. En la prueba se solicita la creación de 3 EP para acceder al recurso de contactos.
 
-## Implementation
+## Primera parte: ejercicio SQL
+
+### PLanteamiento del problema
+
+Devuelva los datos de calificación en un formato más legible: nombre del revisor, título del libro, calificación y fecha de calificación. Ordene los datos primero por nombre del revisor, luego por título del libro y finalmente por calificación. Recuerde que la consulta también se ejecutará en diferentes conjuntos de datos. Puede usar el script test.sql para ejecutarlo en su administrador de IDE sql
+Dadas las siguiente tablas:
+
+```SQL
+CREATE TABLE books(id INT, title varchar(250), year INT, author
+varchar(250));
+CREATE TABLE reviewers(id INT, name varchar(250));
+CREATE TABLE ratings(reviewer_id INT, book_id INT, rating INT,
+rating_date date);
+```
+
+Devolver:
+nombre del revisor, título del libro, calificación y fecha de calificación en orden jerarquico, comenzando por nombre del revisor, título del libro y por última la califiación.
+
+### Solución
+
+Observando la estructura de la tabla ratings, se puede observar que tiene los campos reviwer_id y book_id, a demás de los campos de interés rating\*.
+
+De esta forma, un simple inner join de la tabla ratings con las tablas de books y reviwers en los campos book.id y reviwers.id respectivamente, nos dará la tabla deseada. Se utilizó el siguiente comando:
+
+```SQL
+SELECT reviewers.name AS reviewer_name, books.title AS book_title, ratings.rating, ratings.rating_date
+FROM ratings
+    INNER JOIN reviewers ON reviewers.id = ratings.reviewer_id
+    INNER JOIN books ON books.id = ratings.book_id
+ORDER BY reviewer_name, book_title, rating DESC;
+```
+
+## Segunda parte: Creación de una REST API para recursos de contacto
 
 La implementación de la API se realizó utilizando Flask. Esta elección se hizo debido a la agilidad que brinda Flask para crear aplicaciones simples y confiables. A pesar de poder escalar bien a proyectos más grandes, en este caso recomendaría migrar a marcos más robustos como Django, Expressjs, entre otros.
 
@@ -85,7 +117,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Sin embargo, debido al tiempo, no se logró implementar este recurso con el servidor.
+Se logró micrar el fakedatabase.json a una tabla de DYnamoDB, sin embargo, debido al tiempo, no se logró implementar este recurso con el servidor.
 
 ### Despliegue
 

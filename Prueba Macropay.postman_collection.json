@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "ad776893-535b-4172-aad5-1a22d0336a96",
+		"name": "Prueba Macropay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Contacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "phrase",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single Contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacts/3bf6353d-9142-4f32-bbe0-edc52b8a4eb0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacts",
+								"3bf6353d-9142-4f32-bbe0-edc52b8a4eb0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete contact",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacts/3bf6353d-9142-4f32-bbe0-edc52b8a4eb0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacts",
+								"3bf6353d-9142-4f32-bbe0-edc52b8a4eb0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
