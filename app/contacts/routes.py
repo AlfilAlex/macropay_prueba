@@ -18,7 +18,7 @@ def contacts_list():
         dir_contacts = contact_directory.contacts_by_phrase(
             request.args["phrase"])
     else:
-        dir_contacts = contact_directory.all_contacts
+        dir_contacts = contact_directory.all_contacts()
 
     dir_contacts.sort(key=lambda contact: contact["name"])
     response = make_response({"status": "success",
@@ -50,6 +50,6 @@ def delete_contact(contact_id):
             {"status": "success", "data": None}, 204)
     else:
         response = make_response({"status": "fail", "data": {
-                                 "phrase": f"Contact with ID value {contact_id} does not exist"}}, 200)
+                                 "phrase": f"Contact with ID value {contact_id} does not exist"}}, 404)
 
     return response

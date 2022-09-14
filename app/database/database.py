@@ -7,7 +7,6 @@ class Directory():
     def __init__(self, path_to_file):
         self.path_to_file = path_to_file
 
-    @property
     def all_contacts(self):
         contacs_database = self.load_contacts_file()
 
@@ -19,20 +18,20 @@ class Directory():
 
     def contact_by_id(self, contact_id):
         contact = filter(lambda contact: contact["id"] ==
-                         contact_id, self.all_contacts)
+                         contact_id, self.all_contacts())
 
         return list(contact)
 
     def contacts_by_phrase(self, phrase):
         matching_contacts = filter(
-            lambda contact: phrase.lower() in contact["name"].lower(), self.all_contacts)
+            lambda contact: phrase.lower() in contact["name"].lower(), self.all_contacts())
 
         return list(matching_contacts)
 
     def delete_contact(self, contact_id):
         if self.contact_exist(contact_id):
             filtered_contacts = list(
-                filter(lambda contact: contact["id"] != contact_id, self.all_contacts))
+                filter(lambda contact: contact["id"] != contact_id, self.all_contacts()))
             self.update_contacts(filtered_contacts)
 
     def update_contacts(self, updated_contacts):
@@ -41,4 +40,4 @@ class Directory():
 
     def contact_exist(self, contact_id):
         return len(list(filter(lambda contact: contact["id"] ==
-                               contact_id, self.all_contacts)))
+                               contact_id, self.all_contacts())))
