@@ -67,9 +67,7 @@ def test_get_contact_by_id_notfound(mock_get, test_client):
 
 
 @patch('app.contacts.routes.contact_directory.delete_contact')
-@patch('app.contacts.routes.contact_directory.contact_exist')
-def test_del_contact_by_id(mock_contact_exist, mock_del, test_client, mock_contact, contact_id):
-    mock_contact_exist.return_value = True
+def test_del_contact_by_id(mock_del, test_client, mock_contact, contact_id):
     mock_del.return_value = mock_contact
 
     response = test_client.delete(f"/api/v1/contacts/{contact_id}")
@@ -77,10 +75,8 @@ def test_del_contact_by_id(mock_contact_exist, mock_del, test_client, mock_conta
     assert response.status_code == 204
 
 
-@patch('app.contacts.routes.contact_directory.contact_exist')
-def test_del_contact_by_id_notfound(mock_contact_exist, test_client):
-    mock_contact_exist.return_value = False
-    contact_id = "asdfasdfasdfasd"
+def test_del_contact_by_id_notfound(test_client):
+    contact_id = "FalseIdThatNotExist"
 
     response = test_client.delete(f"/api/v1/contacts/{contact_id}")
 

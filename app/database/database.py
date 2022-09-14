@@ -21,7 +21,10 @@ class Directory():
         key = self.format_contact_id(contact_id)
         contact = client.get_item(TableName=table_name,
                                   Key=key)
-        formated_contact = self.format_ddb_resp([contact["Item"]])
+        if "Item" in contact:
+            formated_contact = self.format_ddb_resp([contact["Item"]])
+        else:
+            formated_contact = False
 
         return formated_contact
 
@@ -48,17 +51,6 @@ class Directory():
     def update_contacts(self, updated_contacts):
         with open(self.path_to_file, "w") as open_file:
             json.dump(updated_contacts, open_file)
-
-    def contact_exist(self, contact_id):
-        return True
-    #     key = self.format_contact_id(contact_id)
-    #     contact = client.get_item(TableName=table_name,
-    #                               Key=key,
-    #                               ProjectionExpression="placeholder")
-    #     print(contact)
-
-    #     return len(list(filter(lambda contact: contact["id"] ==
-    #                            contact_id, self.all_contacts())))
 
     def format_contact_id(self, contact_id):
         return {
