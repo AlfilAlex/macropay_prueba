@@ -1,7 +1,5 @@
 import json
 
-# from contacts_app.app.contacts.routes import contacs
-
 
 class Directory():
     def __init__(self, path_to_file):
