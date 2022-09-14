@@ -1,6 +1,4 @@
 import json
-import json
-from multiprocessing.connection import Client
 import boto3
 
 region_name = 'us-east-1'
@@ -20,7 +18,6 @@ class Directory():
         return formated_contacts
 
     def contact_by_id(self, contact_id):
-
         key = self.format_contact_id(contact_id)
         contact = client.get_item(TableName=table_name,
                                   Key=key)
@@ -42,25 +39,26 @@ class Directory():
         return formated_contacs_database
 
     def delete_contact(self, contact_id):
-        if self.contact_exist(contact_id):
-            filtered_contacts = list(
-                filter(lambda contact: contact["id"] != contact_id, self.all_contacts()))
-            self.update_contacts(filtered_contacts)
+        key = self.format_contact_id(contact_id)
+        result = client.delete_item(TableName=table_name, Key=key,
+                                    ReturnValues="ALL_OLD")
+        if "Attributes" not in result:
+            raise ValueError
 
     def update_contacts(self, updated_contacts):
         with open(self.path_to_file, "w") as open_file:
             json.dump(updated_contacts, open_file)
 
     def contact_exist(self, contact_id):
+        return True
+    #     key = self.format_contact_id(contact_id)
+    #     contact = client.get_item(TableName=table_name,
+    #                               Key=key,
+    #                               ProjectionExpression="placeholder")
+    #     print(contact)
 
-        key = self.format_contact_id(contact_id)
-        contact = client.get_item(TableName=table_name,
-                                  Key=key,
-                                  ProjectionExpression="placeholder")
-        print(contact)
-
-        return len(list(filter(lambda contact: contact["id"] ==
-                               contact_id, self.all_contacts())))
+    #     return len(list(filter(lambda contact: contact["id"] ==
+    #                            contact_id, self.all_contacts())))
 
     def format_contact_id(self, contact_id):
         return {

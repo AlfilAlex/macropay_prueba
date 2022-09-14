@@ -44,11 +44,11 @@ def contact(contact_id):
 
 @contacts.route("contacts/<contact_id>", methods=["DELETE"])
 def delete_contact(contact_id):
-    if contact_directory.contact_exist(contact_id):
+    try:
         contact_directory.delete_contact(contact_id)
         response = make_response(
             {"status": "success", "data": None}, 204)
-    else:
+    except ValueError:
         response = make_response({"status": "fail", "data": {
                                  "phrase": f"Contact with ID value {contact_id} does not exist"}}, 404)
 
