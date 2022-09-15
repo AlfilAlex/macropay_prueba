@@ -85,7 +85,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Sin embargo, debido al tiempo, no se logró implementar este recurso con el servidor.
+Se logró micrar el fakedatabase.json a una tabla de DynamoDB, ~~sin embargo, debido al tiempo, no se logró implementar este recurso con el servidor.~~. Y se logró implementar en el objeto Directory encargado de intermediar con DynamoDB (en la rama _mejoras_). Para poder utilizar estas caracteristicas de forma local, puede solicitar unas credeciales IAM con los permisos requeridos. De igual forma, se buscará asignar un rol a la instancia de EC2 con estos permisos, y utilizar el código actualizado.
 
 ### Despliegue
 
