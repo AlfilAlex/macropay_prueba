@@ -20,6 +20,7 @@ La estructura del proyecto se muestra a continuación:
 │   │   └── fakedatabase.json
 │   └── __init__.py
 │   ├── conftest.py
+├── tests
 │   ├── functional
 │   │   └── test_get_contacts.py
 │   └── unit
@@ -27,7 +28,6 @@ La estructura del proyecto se muestra a continuación:
 ├── Procfile
 ├── README.md
 ├── requirements.txt
-├── tests
 └── wsgi.py
 ```
 
